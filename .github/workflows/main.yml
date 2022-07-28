@@ -18,19 +18,16 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Login & Run Bot
-    
+  
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        uses: actions/checkout@v3
+      uses: actions/checkout@v3
       
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          USERNAME: ${{ secrets.SSH_USER }}
-          KEY: ${{ secrets.SSH_KEY }}
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
+      with:
+         host: ${{ secrets.SSH_HOST }}
+         USERNAME: ${{ secrets.SSH_USER }}
+         KEY: ${{ secrets.SSH_KEY }}   
+    
+      run: |
           # if screen doesn't exist, start it, else just re-attach it
           screen -xR -S job-hunter
 
@@ -43,4 +40,4 @@ jobs:
           # run bot
           python3 bot.py
           
-        shell: bash
+      shell: bash
