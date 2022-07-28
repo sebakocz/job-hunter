@@ -39,3 +39,5 @@ jobs:
 
             # run bot
             python3 bot.py
+
+          shell: batch
