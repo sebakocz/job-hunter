@@ -1,0 +1,46 @@
+name: Deploy
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push event but only for the "master" branch
+  push:
+    branches: [ "master" ]
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Login & Run Bot
+    
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        uses: actions/checkout@v3
+      
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          KEY: ${{ secrets.SSH_KEY }}
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          # if screen doesn't exist, start it, else just re-attach it
+          screen -xR -S job-hunter
+
+          # if a new screen starts, we end up at root dir and need to get out
+          if [ -d "Misc/Job_Hunter" ]; then
+            cd Misc/Job_Hunter
+            source .venvs/discord/bin/activate
+          fi
+
+          # run bot
+          python3 bot.py
+          
+        shell: bash
