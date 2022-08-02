@@ -19,7 +19,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Deploy
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: appleboy/ssh-action@master
       
         with:
@@ -28,14 +27,7 @@ jobs:
           KEY: ${{ secrets.SSH_KEY }}   
     
           script: |
-            # if screen doesn't exist, start it, else just re-attach it
-            screen -xR -S job-hunter
-
-            # if a new screen starts, we end up at root dir and need to get out
-            if [ -d "Misc/Job_Hunter" ]; then
-              cd Misc/Job_Hunter
-              source .venvs/discord/bin/activate
-            fi
-
-            # run bot
-            python3 bot.py
+            sudo supervisorctl stop job-hunter
+            cd ~/Misc/Job_Hunter
+            git pull origin master
+            sudo supervisorctl start job-hunter
