@@ -27,7 +27,4 @@ jobs:
           KEY: ${{ secrets.SSH_KEY }}   
     
           script: |
-            echo ${{secrets.PASS}} | sudo -S "/bin/supervisorctl stop job-hunter"
-            cd ~/Misc/Job_Hunter
-            git pull origin master
-            echo ${{secrets.PASS}} | sudo -S "/bin/supervisorctl start job-hunter"
+            echo $PATH
