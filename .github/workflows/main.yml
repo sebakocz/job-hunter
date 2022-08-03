@@ -27,4 +27,4 @@ jobs:
           KEY: ${{ secrets.SSH_KEY }}   
     
           script: |
-            echo $PATH
+            echo ${{secrets.PASS}} | sudo -S "whoami"
