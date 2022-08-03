@@ -28,7 +28,7 @@ jobs:
     
           script: |
             cd ~/Misc/Job_Hunter
-            git status
-            git config --get remote.origin.url
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/job_hunter
             git pull origin master
             echo ${{secrets.PASS}} | sudo -S supervisorctl restart job-hunter
