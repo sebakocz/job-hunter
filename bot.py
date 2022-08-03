@@ -45,4 +45,8 @@ async def on_ready():
             time.sleep(60*5)
 
 
+@bot.command()
+async def ping(ctx):
+    await ctx.send("pong")
+
 bot.run(os.getenv("DISCORD_TOKEN"))
