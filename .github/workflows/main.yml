@@ -27,4 +27,8 @@ jobs:
           KEY: ${{ secrets.SSH_KEY }}   
     
           script: |
+            cd ~/Misc/Job_Hunter
+            git status
+            git config --get remote.origin.url
+            git pull origin master
             echo ${{secrets.PASS}} | sudo -S supervisorctl restart job-hunter
