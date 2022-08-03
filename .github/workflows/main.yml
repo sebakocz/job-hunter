@@ -27,4 +27,4 @@ jobs:
           KEY: ${{ secrets.SSH_KEY }}   
     
           script: |
-            echo ${{secrets.PASS}} | sudo -S "whoami"
+            echo ${{secrets.PASS}} | sudo -S supervisorctl restart job-hunter
